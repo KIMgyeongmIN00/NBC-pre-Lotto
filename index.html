@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로또 번호 생성기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Jua&family=Nanum+Gothic&display=swap"
+        rel="stylesheet">
+
+</head>
+<style>
+    * {
+        font-family: "Jua", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .container {
+        color: white;
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+        border-radius: 50% 10% 50% 10% / 10% 50% 10% 50%;
+        width: 400px;
+        height: 400px;
+        margin: 0 auto;
+    }
+
+    .container>h1 {
+        background-color: transparent;
+        border-radius: 5px;
+        border: 2px solid white;
+        width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container>h1:hover {
+        transform: rotateZ(-2deg);
+        transition: 0.4s ease;
+    }
+
+    .numBtn {
+        font-size: 25px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        display: inline-block;
+        text-align: center;
+        font-weight: bold;
+        padding: 0.7em 2em;
+        border: 3px solid purple;
+        border-radius: 2px;
+        position: relative;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16),
+            0 3px 6px rgba(0, 0, 0, 0.1);
+        color: purple;
+        text-decoration: none;
+        transition: 0.3s ease all;
+        z-index: 1;
+    }
+
+    .numBtn:before {
+        transition: 0.5s all ease;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        right: 50%;
+        bottom: 0;
+        opacity: 0;
+        content: '';
+        background-color: purple;
+        z-index: -1;
+    }
+
+    .numBtn:hover,
+    numBtn:focus {
+        color: white;
+    }
+
+    .numBtn:hover:before,
+    .numBtn:focus:before {
+        transition: 0.5s all ease;
+        left: 0;
+        right: 0;
+        opacity: 1;
+    }
+
+    .numBtn:active {
+        transform: scale(0.9);
+        color: white;
+    }
+
+    .nums {
+        font-size: 25px;
+    }
+
+.nums:hover {
+    transform: scale(1.2) translateY(16px);
+    transition: 2s all ease;
+}
+
+    body {
+        background-color: black;
+    }
+</style>
+<body>
+<div class="container">
+    <h1>로또 1등 번호 뽑기</h1>
+    <button class="numBtn" id="generateButton">숫자 돌리기~</button>
+    <div class='nums' id="numbers"></div>
+</div>
+</body>
+<script>
+    let generateButton = document.getElementById('generateButton');
+
+    generateButton.addEventListener('click', function () {
+        let numbers = generateLottoNumbers();
+        document.getElementById('numbers').textContent = numbers.join(', ');
+    });
+
+
+    function generateLottoNumbers() {
+        let temp = []; // 로또 번호 배열 생성
+        let rand = 0;  // 랜덤 번호 자리 변수
+        for (let i = 0; i <= 5; i++) {
+            rand = Math.floor(Math.random() * 45 + 1)
+            if (temp.includes(rand)) { // 중복 값 제거
+                while (temp.includes(rand)) {
+                    rand = Math.floor(Math.random() * 45 + 1)
+                }
+                temp[i] = rand
+            } else {
+                temp[i] = rand
+            }
+        }
+        return temp.sort((a, b) => a - b)
+    }
+
+
+</script>
+
+</html>
